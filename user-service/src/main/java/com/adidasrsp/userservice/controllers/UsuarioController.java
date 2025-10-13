@@ -46,5 +46,9 @@ public class UsuarioController {
     public void eliminarLogicamenteUsuario(@PathVariable("id") Long id){
         usuarioService.eliminarLogicamenteUsuario(id);
     }
+    @GetMapping("/hello")
+    public String hello() {
+        return "Hello from User Service!";
+    }
 
 }

@@ -32,22 +32,28 @@ def obtener_detalles_prendas(ids: List[int], db: Session = Depends(get_db)):
     return [
         {
             "nombre": prenda.descripcion,
-            "url_imagen": "http://192.168.1.51:8000/static/"+prenda.ruta_imagen,
-            
+            "url_imagen": f"http://localhost:8082/static/{prenda.ruta_imagen}",
         }
         for prenda in prendas
     ]
 
-
 @router.get("/", response_model=list[PrendaResponse])
 def obtener_prendas_activas(db: Session = Depends(get_db)):
-    return prenda_crud.obtener_prendas_activas(db)
+    prendas = prenda_crud.obtener_prendas_activas(db)
+    
+    for prenda in prendas:
+        prenda.url_imagen_completa = f"http://localhost:8082/static/{prenda.ruta_imagen}"
+    
+    return prendas
 
 @router.get("/{prenda_id}", response_model=PrendaResponse)
 def obtener_prenda_por_id(prenda_id: int, db: Session = Depends(get_db)):
     prenda = prenda_crud.obtener_prenda_por_id(db, prenda_id)
     if prenda is None:
         raise HTTPException(status_code=404, detail="Prenda no encontrada")
+    
+    # Agregar URL completa de la imagen
+    prenda.url_imagen_completa = f"http://localhost:8000/static/{prenda.ruta_imagen}"
     return prenda
 
 @router.get("/categoria/{categoria}", response_model=list[PrendaResponse])
@@ -55,6 +61,11 @@ def obtener_prendas_por_categoria(categoria: str, db: Session = Depends(get_db))
     prendas = prenda_crud.obtener_prendas_por_categoria(db, categoria)
     if not prendas:
         raise HTTPException(status_code=404, detail="No se encontraron prendas en esta categoría")
+    
+    # Agregar URL completa de la imagen a cada prenda
+    for prenda in prendas:
+        prenda.url_imagen_completa = f"http://localhost:8000/static/{prenda.ruta_imagen}"
+    
     return prendas
 
 @router.put("/{prenda_id}", response_model=PrendaResponse)
@@ -62,6 +73,9 @@ def actualizar_prenda(prenda_id: int, datos: PrendaUpdate, db: Session = Depends
     prenda_actualizada = prenda_crud.actualizar_prenda(db, prenda_id, datos)
     if prenda_actualizada is None:
         raise HTTPException(status_code=404, detail="Prenda no encontrada")
+    
+    # Agregar URL completa de la imagen
+    prenda_actualizada.url_imagen_completa = f"http://localhost:8000/static/{prenda_actualizada.ruta_imagen}"
     return prenda_actualizada
 
 @router.delete("/{prenda_id}", response_model=PrendaResponse)
@@ -69,7 +83,7 @@ def eliminar_prenda(prenda_id: int, db: Session = Depends(get_db)):
     prenda = prenda_crud.eliminar_prenda_logicamente(db, prenda_id)
     if prenda is None:
         raise HTTPException(status_code=404, detail="Prenda no encontrada")
+    
+    # Agregar URL completa de la imagen
+    prenda.url_imagen_completa = f"http://localhost:8000/static/{prenda.ruta_imagen}"
     return prenda
-
-
-

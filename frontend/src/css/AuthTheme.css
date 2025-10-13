@@ -1,0 +1,173 @@
+/* AQP Marketplace Theme - Guinda/Morado Minimalista */
+:root {
+  --burgundy-primary: #722F37;
+  --burgundy-dark: #5A2329;
+  --burgundy-light: #8C4A52;
+  --purple-accent: #6A4C93;
+  --purple-light: #8B6BAE;
+  --smoke-gray: #F8F9FA;
+  --text-dark: #2D3748;
+  --text-light: #718096;
+  --border-light: #E2E8F0;
+}
+
+.aqp-bg {
+  background: linear-gradient(135deg, var(--smoke-gray) 0%, #FFFFFF 100%);
+  min-height: 100vh;
+}
+
+.aqp-card {
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(114, 47, 55, 0.1);
+  background: white;
+  width: 100%;
+  max-width: 3000px;
+  margin: 0 auto;
+}
+
+.aqp-logo {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.volcano-icon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--burgundy-primary), var(--purple-accent));
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(114, 47, 55, 0.2);
+}
+
+
+.volcano-icon .bi {
+  color: white;
+  font-size: 2rem;
+  z-index: 2;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+.aqp-title {
+  color: var(--burgundy-dark);
+  font-weight: 800;
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.5px;
+}
+
+.aqp-subtitle {
+  color: var(--text-light);
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.aqp-form .form-control {
+  border: 1.5px solid var(--border-light);
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  background: white;
+}
+
+.aqp-form .form-control:focus {
+  border-color: var(--burgundy-primary);
+  box-shadow: 0 0 0 3px rgba(114, 47, 55, 0.1);
+  background: white;
+}
+
+.aqp-form .form-label {
+  color: var(--text-dark);
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+}
+
+.aqp-btn-primary {
+  background: linear-gradient(135deg, var(--burgundy-primary), var(--purple-accent));
+  border: none;
+  border-radius: 12px;
+  padding: 16px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  color: white !important;
+  letter-spacing: 0.5px;
+}
+
+.aqp-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(114, 47, 55, 0.35);
+  background: linear-gradient(135deg, var(--burgundy-dark), var(--purple-light));
+  color: white !important;
+}
+
+.aqp-btn-primary:disabled {
+  background: var(--border-light);
+  transform: none;
+  box-shadow: none;
+  color: var(--text-light) !important;
+}
+
+.aqp-link {
+  color: var(--burgundy-primary);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+}
+
+.aqp-link:hover {
+  color: var(--purple-accent);
+}
+
+.aqp-footer {
+  text-align: center;
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-light);
+  color: var(--text-light);
+  font-size: 0.95rem;
+}
+
+/* Loading animation */
+.aqp-loading {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Input groups mejorados */
+.input-group-text {
+  background: transparent !important;
+  border: 1.5px solid var(--border-light);
+  border-right: none;
+  padding: 14px 16px;
+}
+
+.form-control.border-start-0 {
+  border-left: none !important;
+}
+
+.input-group:focus-within .input-group-text {
+  border-color: var(--burgundy-primary);
+}
+
+.input-group:focus-within .form-control {
+  border-left: none;
+}

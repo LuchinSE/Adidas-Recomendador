@@ -21,15 +21,20 @@ public class UsuarioModel {
     @Column(nullable = false)
     private boolean estado=true; // true: activo, false: eliminado (lógico)
 
+    @Column(nullable = false)
+    private String telefono;
+
+
     // Constructores
 
     public UsuarioModel() {}
 
-    public UsuarioModel(String nombre, String correo, String contrasena, boolean estado) {
+    public UsuarioModel(String nombre, String correo, String contrasena, boolean estado, String telefono ) {
         this.nombre = nombre;
         this.correo = correo;
         this.contrasena = contrasena;
         this.estado = estado;
+        this.telefono = telefono;
     }
 
     // Getters y Setters
@@ -69,4 +74,8 @@ public class UsuarioModel {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+
+    public String getTelefono() { return telefono; }
+
+    public void setTelefono(String telefono) { this.telefono = telefono; }
 }

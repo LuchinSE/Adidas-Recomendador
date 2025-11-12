@@ -4,8 +4,9 @@ import { useAuth } from '../../Service/useAuth';
 
 const Navbar = () => {
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const [searchTerm, setSearchTerm] = useState(''); // Estado para el término de búsqueda
   const navigate = useNavigate();
-  const { isAuthenticated, user, logout } = useAuth(); // Usar el hook
+  const { isAuthenticated, user, logout } = useAuth();
 
   const handleLogout = () => {
     logout();
@@ -16,6 +17,22 @@ const Navbar = () => {
       setShowUserMenu(!showUserMenu);
     } else {
       navigate('/login');
+    }
+  };
+
+  // Función para manejar la búsqueda
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchTerm.trim()) {
+      // Redirigir a la página de búsqueda con el término
+      navigate(`/search?q=${encodeURIComponent(searchTerm.trim())}`);
+    }
+  };
+
+  // Función para buscar al presionar Enter
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch(e);
     }
   };
 
@@ -43,17 +60,20 @@ const Navbar = () => {
         {/* Search Bar - Centered */}
         <div className="navbar-collapse">
           <div className="navbar-nav mx-auto">
-            <div className="search-container" style={{ minWidth: '400px' }}>
+            <form onSubmit={handleSearch} className="search-container" style={{ minWidth: '400px' }}>
               <div className="input-group">
                 <input 
                   type="text" 
                   className="form-control search-input" 
                   placeholder="Buscar productos, marcas..."
                   style={{ borderRadius: '25px 0 0 25px' }}
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onKeyPress={handleKeyPress}
                 />
                 <button 
                   className="btn search-btn" 
-                  type="button"
+                  type="submit"
                   style={{ 
                     borderRadius: '0 25px 25px 0',
                     background: 'linear-gradient(135deg, var(--burgundy-primary), var(--purple-accent))',
@@ -63,11 +83,11 @@ const Navbar = () => {
                   <i className="bi bi-search"></i>
                 </button>
               </div>
-            </div>
+            </form>
           </div>
         </div>
 
-        {/* User Menu */}
+        {/* User Menu - mismo código que tenías */}
         <div className="navbar-nav">
           <div className="nav-item dropdown">
             <button 
@@ -96,7 +116,6 @@ const Navbar = () => {
               )}
             </button>
 
-            {/* Dropdown Menu (solo para usuarios autenticados) */}
             {isAuthenticated && showUserMenu && (
               <div 
                 className="dropdown-menu show shadow border-0 mt-2"
@@ -114,7 +133,7 @@ const Navbar = () => {
                 <hr className="dropdown-divider" />
                 <button 
                   className="dropdown-item"
-                  onClick={() => navigate('/profile')}
+                  onClick={() => navigate('/mi-cuenta')}
                 >
                   <i className="bi bi-person me-2"></i>
                   Mi Perfil

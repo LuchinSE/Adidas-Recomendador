@@ -9,5 +9,9 @@ class Prenda(Base):
     descripcion = Column(String, nullable=False)
     ruta_imagen = Column(String, nullable=False)
     categoria = Column(String, nullable=False)
+    precio = Column(Float)
     estado = Column(Boolean, default=True)
     embedding = Column(ARRAY(Float))
+    usuario_id = Column(Integer, nullable=False)
+
+    

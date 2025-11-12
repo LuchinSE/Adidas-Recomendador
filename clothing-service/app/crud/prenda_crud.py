@@ -26,15 +26,19 @@ def crear_prenda(db: Session, prenda: PrendaCreate):
         ruta_imagen=prenda.ruta_imagen,
         categoria=prenda.categoria,
         estado=prenda.estado,
-        embedding=embedding
+        embedding=embedding,
+        usuario_id=prenda.usuario_id
     )
     db.add(nueva_prenda)
     db.commit()
     db.refresh(nueva_prenda)
     return nueva_prenda
 # Obtener todas las prendas activas
-def obtener_prendas_activas(db: Session):
-    return db.query(Prenda).filter(Prenda.estado == True).all()
+def obtener_prendas_activas(db: Session, skip: int = 0, limit: int = 10):
+    query = db.query(Prenda).filter(Prenda.estado == True)
+    total = query.count()
+    prendas = query.offset(skip).limit(limit).all()
+    return total, prendas
 
 # Obtener prenda por ID
 def obtener_prenda_por_id(db: Session, prenda_id: int):
@@ -72,3 +76,24 @@ def eliminar_prenda_logicamente(db: Session, prenda_id: int):
         prenda.estado = False
         db.commit()
     return prenda
+
+# Obtener prendas por lista de IDs
+def obtener_prendas_por_ids(db: Session, usario_id: int):
+    return db.query(Prenda).filter(
+        Prenda.usuario_id == usario_id, 
+        Prenda.estado == True).all()
+
+def obtener_prendas_por_usuario(db: Session, usuario_id: int):
+    return db.query(Prenda).filter(
+        Prenda.usuario_id == usuario_id,
+        Prenda.estado == True
+    ).all()
+
+def buscar_prendas_por_texto(db: Session, texto: str, skip: int = 0, limit: int = 10):
+    query = db.query(Prenda).filter(
+        Prenda.descripcion.ilike(f"%{texto}%"),
+        Prenda.estado == True
+    )
+    total = query.count()
+    prendas = query.offset(skip).limit(limit).all()
+    return total, prendas

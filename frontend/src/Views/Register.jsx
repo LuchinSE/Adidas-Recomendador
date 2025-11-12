@@ -10,6 +10,7 @@ const Register = () => {
   const [formData, setFormData] = useState({
     nombre: '',
     correo: '',
+    telefono: '',
     contrasena: '',
     confirmarContrasena: ''
   });
@@ -54,10 +55,19 @@ const Register = () => {
       return;
     }
 
+    // Validación opcional para teléfono
+    if (formData.telefono && !/^\d+$/.test(formData.telefono)) {
+      setError('El teléfono debe contener solo números');
+      showAlert('Error', 'El teléfono debe contener solo números', 'error');
+      setLoading(false);
+      return;
+    }
+
     try {
       const response = await axios.post('http://localhost:8080/api/usuarios/registro', {
         nombre: formData.nombre,
         correo: formData.correo,
+        telefono: formData.telefono,
         contrasena: formData.contrasena,
         estado: true
       }, {
@@ -154,6 +164,26 @@ const Register = () => {
                       disabled={loading}
                     />
                   </div>
+                </div>
+
+                {/* Teléfono */}
+                <div className="mb-4">
+                  <label className="form-label">Teléfono</label>
+                  <div className="input-group">
+                    <span className="input-group-text">
+                      <i className="bi bi-telephone text-muted"></i>
+                    </span>
+                    <input
+                      type="tel"
+                      className="form-control border-start-0"
+                      name="telefono"
+                      value={formData.telefono}
+                      onChange={handleChange}
+                      placeholder="Tu número de teléfono"
+                      disabled={loading}
+                    />
+                  </div>
+                  <small className="text-muted">Opcional</small>
                 </div>
 
                 {/* Contraseña */}

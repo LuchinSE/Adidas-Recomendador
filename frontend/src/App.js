@@ -1,32 +1,46 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./Views/Login";
 import Register from "./Views/Register";
 import Dashboard from "./Views/Dashborad";
-import authService from "./Service/authService";
 import Marketplace from './Views/Marketplace';
 import ProductDetail from './Views/ProductDetail';
-//import { AuthProvider } from './Service/useAuth'; 
+import Favorites from './Views/Favorites';
+import MiCuenta from './Views/Profile';
+import Search from './Views/Search';
+import { useAuth } from './Service/useAuth';
 import './App.css';
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [loading, setLoading] = useState(true);
+  return (
+    <Router>
+      <Routes>
+        {/* Rutas públicas */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        
+        {/* Rutas públicas (accesibles como invitado) */}
+        <Route path="/marketplace" element={<Marketplace />} />
+        <Route path="/product/:id" element={<ProductDetail />} />
+        <Route path="/search" element={<Search />} /> 
 
-  useEffect(() => {
-    const checkAuth = () => {
-      const authenticated = authService.isAuthenticated();
-      setIsAuthenticated(authenticated);
-      setLoading(false);
-    };
+        {/* Rutas protegidas */}
+        <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+        <Route path="/favorites" element={<ProtectedRoute><Favorites /></ProtectedRoute>} />
+        <Route path="/mi-cuenta" element={<ProtectedRoute><MiCuenta /></ProtectedRoute>} />
 
-    checkAuth();
-  }, []);
+        {/* Rutas por defecto */}
+        <Route path="/" element={<Navigate to="/marketplace" />} />
+        <Route path="*" element={<Navigate to="/marketplace" />} />
+      </Routes>
+    </Router>
+  );
+}
 
-  const handleLoginSuccess = () => {
-    setIsAuthenticated(true);
-  };
-
+// Componente para rutas protegidas
+const ProtectedRoute = ({ children }) => {
+  const { isAuthenticated, loading } = useAuth();
+  
   if (loading) {
     return (
       <div className="d-flex justify-content-center align-items-center vh-100">
@@ -36,51 +50,8 @@ function App() {
       </div>
     );
   }
-
-  return (
-    //<AuthProvider>
-      <Router>
-        <Routes>
-          {/* Rutas públicas */}
-          <Route 
-            path="/login" 
-            element={
-              isAuthenticated ? 
-              <Navigate to="/marketplace" /> :
-              <Login onLoginSuccess={handleLoginSuccess} />
-            } 
-          />
-          
-          <Route 
-            path="/register" 
-            element={
-              isAuthenticated ? 
-              <Navigate to="/marketplace" /> :
-              <Register />
-            } 
-          />
-          
-          {/* Rutas protegidas (solo para usuarios autenticados) */}
-          <Route 
-            path="/dashboard" 
-            element={
-              isAuthenticated ? 
-              <Dashboard /> : 
-              <Navigate to="/login" />
-            } 
-          />
-
-          {/* Rutas públicas (accesibles como invitado) */}
-          <Route path="/marketplace" element={<Marketplace />} />
-          <Route path="/product/:id" element={<ProductDetail />} />
-
-          {/* Rutas por defecto */}
-          <Route path="/" element={<Navigate to="/marketplace" />} />
-          <Route path="*" element={<Navigate to="/marketplace" />} />
-        </Routes>
-      </Router>
-  //  </AuthProvider>
-  );
-}
+  
+  return isAuthenticated ? children : <Navigate to="/login" />;
+};
 
 export default App;

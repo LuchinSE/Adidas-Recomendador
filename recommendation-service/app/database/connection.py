@@ -4,7 +4,8 @@ from sqlalchemy.orm import sessionmaker
 import os
 
 # Puedes usar .env si lo prefieres
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://postgres:postgres@192.168.1.51:5432/Recomendaciondb")
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://postgres:admin@localhost:5432/dump-Recomendaciondb")
+
 
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

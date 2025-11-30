@@ -680,3 +680,11 @@
     padding: 1.5rem;
   }
 }
+
+.btn-crear-combinacion {
+  color: #ffffff !important; /* texto blanco */
+}
+
+.btn-crear-combinacion .bi {
+  color: #ffffff !important; /* icono blanco */
+}

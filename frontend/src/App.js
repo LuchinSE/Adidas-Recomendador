@@ -8,6 +8,7 @@ import ProductDetail from './Views/ProductDetail';
 import Favorites from './Views/Favorites';
 import MiCuenta from './Views/Profile';
 import Search from './Views/Search';
+import Recommendation from './Views/Recommendation';
 import { useAuth } from './Service/useAuth';
 import './App.css';
 
@@ -28,6 +29,7 @@ function App() {
         <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
         <Route path="/favorites" element={<ProtectedRoute><Favorites /></ProtectedRoute>} />
         <Route path="/mi-cuenta" element={<ProtectedRoute><MiCuenta /></ProtectedRoute>} />
+        <Route path="/recomendaciones" element={<ProtectedRoute><Recommendation /></ProtectedRoute>} />
 
         {/* Rutas por defecto */}
         <Route path="/" element={<Navigate to="/marketplace" />} />

@@ -97,3 +97,5 @@ def buscar_prendas_por_texto(db: Session, texto: str, skip: int = 0, limit: int 
     total = query.count()
     prendas = query.offset(skip).limit(limit).all()
     return total, prendas
+
+

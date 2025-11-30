@@ -1,0 +1,47 @@
+.frb-container {
+    position: fixed;
+    right: 40px;
+    bottom: 40px;
+    z-index: 1050;
+}
+
+.frb-button {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #722F37, #6A4C93);
+    color: #fff;
+    box-shadow: 0 8px 22px rgba(114,47,55,0.25);
+    font-size: 1.35rem;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.frb-button:hover {
+    transform: scale(1.15);
+    box-shadow: 0 12px 28px rgba(114,47,55,0.35);
+}
+
+.frb-button i {
+    transition: transform 0.25s ease;
+}
+
+.frb-button:hover i {
+    transform: scale(1.25);
+}
+
+.frb-label {
+    position: absolute;
+    right: 76px;
+    bottom: 6px;
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-family: system-ui;
+}

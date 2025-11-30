@@ -5,6 +5,6 @@ numpy
 scikit-learn
 python-dotenv
 sqlalchemy
-psycopg2
+psycopg2-binary
 python-multipart
 python-jose[cryptography]

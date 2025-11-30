@@ -5,7 +5,7 @@ import AlertModal from './Modals/AlertModal';
 import '../css/AuthTheme.css';
 import volcanImg from '../img/AqpMarketplace Logo Versión Invertida.png';
 
-const Login = ({ onLoginSuccess }) => {
+const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -37,7 +37,6 @@ const Login = ({ onLoginSuccess }) => {
         );
         setTimeout(() => {
           navigate('/marketplace');
-          onLoginSuccess(result);
         }, 1500);
       }
     } catch (err) {

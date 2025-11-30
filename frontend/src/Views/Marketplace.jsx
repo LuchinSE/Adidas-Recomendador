@@ -7,6 +7,7 @@ import Footer from './Modals/Footer';
 import { useAuth } from '../Service/useAuth';
 import { favoritesService } from '../Service/favoritesService';
 import '../css/MarketplaceTheme.css';
+import FloatingRecommendationButton from './Modals/FloatingRecommendationButton';
 
 const Marketplace = () => {
   const [prendas, setPrendas] = useState([]);
@@ -226,6 +227,7 @@ const Marketplace = () => {
       </div>
 
       <Footer />
+      <FloatingRecommendationButton />
     </div>
   );
 };

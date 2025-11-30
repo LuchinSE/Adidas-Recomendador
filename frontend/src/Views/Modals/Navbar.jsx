@@ -36,11 +36,19 @@ const Navbar = () => {
     }
   };
 
-  return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3">
+  const handleHomeClick = () => {
+    navigate('/marketplace');
+  }
+
+    return (
+    <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3" style={{ position: 'relative', zIndex: 1030 }}>
       <div className="container">
         {/* Logo */}
-        <div className="navbar-brand d-flex align-items-center">
+         <button 
+          className="navbar-brand d-flex align-items-center border-0 bg-transparent p-0"
+          onClick={handleHomeClick}
+          style={{ cursor: 'pointer' }}
+        >
           <div 
             className="volcano-icon me-2 d-flex align-items-center justify-content-center"
             style={{ 
@@ -55,7 +63,7 @@ const Navbar = () => {
           <span className="fw-bold fs-4" style={{ color: 'var(--burgundy-dark)' }}>
             AQP Marketplace
           </span>
-        </div>
+        </button>
 
         {/* Search Bar - Centered */}
         <div className="navbar-collapse">
@@ -87,7 +95,6 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* User Menu - mismo código que tenías */}
         <div className="navbar-nav">
           <div className="nav-item dropdown">
             <button 
@@ -124,7 +131,8 @@ const Navbar = () => {
                   right: 0,
                   left: 'auto',
                   minWidth: '200px',
-                  borderRadius: '12px'
+                  borderRadius: '12px',
+                  zIndex: 1050 
                 }}
               >
                 <div className="dropdown-header text-muted small">

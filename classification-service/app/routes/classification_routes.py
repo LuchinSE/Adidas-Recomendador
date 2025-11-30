@@ -54,3 +54,12 @@ def predict_from_path(request: ImagePathRequest):
         return {"embedding": embedding}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error procesando la imagen: {str(e)}")
+
+@router.post("/embedding-file")
+def predict_from_file(file: UploadFile = File(...)):
+    try:
+        imagen_bytes = file.file.read()
+        embedding = obtener_embedding(imagen_bytes)
+        return {"embedding": embedding}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error procesando la imagen: {str(e)}")
